@@ -1,3 +1,4 @@
+import AffichePokemon from "./components/Pokemon";
 import "./intro.css";
 
 function App() {
@@ -12,9 +13,9 @@ function App() {
         <div>Commence par créer ton premier pokemon: Mew !</div>
       </div>
       <div>
-        <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/151.png" alt="Mew"/>
-        <p className="descriptionImg">Name : Mew</p>
-        <p className="descriptionImg">Id : 151</p>
+        <AffichePokemon myName="MewTwo" myId="150" />
+        <AffichePokemon myName="Carapuce" myId="7" />
+        <AffichePokemon myName="Salamèche" myId="4" />
       </div>
     </>
   );
