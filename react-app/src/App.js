@@ -1,4 +1,4 @@
-import AffichePokemon from "./components/Pokemon";
+import Pokemon from "./components/Pokemon";
 import "./intro.css";
 
 function App() {
@@ -13,9 +13,9 @@ function App() {
         <div>Commence par créer ton premier pokemon: Mew !</div>
       </div>
       <div>
-        <AffichePokemon myName="MewTwo" myId="150" />
-        <AffichePokemon myName="Carapuce" myId="7" />
-        <AffichePokemon myName="Salamèche" myId="4" />
+        <Pokemon myName="MewTwo" myId="150" />
+        <Pokemon myName="Carapuce" myId="7" />
+        <Pokemon myName="Salamèche" myId="4" />
       </div>
     </>
   );
