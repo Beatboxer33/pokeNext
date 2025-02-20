@@ -1,11 +1,12 @@
-export default function Pokemon(props){
-    console.log(props.myName)
-    return(
+export default function Pokemon({ name, id }) {
+    return (
         <div>
-        <img src={"https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/" + props.myId + ".png"} alt={props.myName}/>
-        <p className="descriptionImg">Name : {props.myName}</p>
-        <p className="descriptionImg">Id : {props.myId}</p>
+            <img
+                src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${id}.png`}
+                alt={name}
+            />
+            <p className="descriptionImg">Name : {name}</p>
+            <p className="descriptionImg">Id : {id}</p>
         </div>
-
-)
+    );
 }
