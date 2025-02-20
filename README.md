@@ -43,7 +43,8 @@ pnpm run dev
 Start everything by
 
 ```bash
-make docker-setup
+cd pokeapi-master/
+sudo make docker-setup
 ```
 
 If you don't have make on your machine you can use the following commands
