@@ -1,3 +1,5 @@
+import "./pokemon.css";
+
 export default function Pokemon({ name, id }) {
     return (
         <div>
