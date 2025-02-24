@@ -14,6 +14,7 @@ export default function Loader({ isVisible }: { isVisible: boolean }) {
                         margin: "auto",
                     }}
                 />
+                <h1 style={{textAlign:"center"}}>Chargement en cours...</h1>
             </div>
         );
     }
