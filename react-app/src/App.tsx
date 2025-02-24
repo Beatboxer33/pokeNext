@@ -7,26 +7,11 @@ interface Pokemon {
   id: number;
 }
 
-const POKEMON_LIST = [
-  {
-    name: "Mew",
-    id: 151,
-  },
-  {
-    name: "MewTwo",
-    id: 150,
-  },
-  {
-    name: "Dracolosse",
-    id: 149,
-  },
-];
-
 export default function App() {
   const [filterValue, setFilterValue] = React.useState("");
-  const [pokemons, setPokemons] = React.useState<Pokemon[]>(POKEMON_LIST);
+  const [pokemons, setPokemons] = React.useState<Pokemon[]>([]);
   const [filteredPokemons, setFilteredPokemons] =
-    React.useState<Pokemon[]>(POKEMON_LIST);
+    React.useState<Pokemon[]>([]);
 
   const filterPokemonByName = (name: String) => {
     const result = pokemons.filter((poke) =>
@@ -48,23 +33,15 @@ export default function App() {
       headers: { accept: "application/json" },
     });
     const pokeObjects = await pokemonResponse.json();
+    const listPokes = pokeObjects.pokemon_entries;
+    const pokedex = listPokes.map((obj: {entry_number:number,pokemon_species:{name:string}}) => {
+      const id = obj.entry_number;
+      const name = obj.pokemon_species.name;
+      return { name, id };
+    });
 
-    const listPokes = Object.values(pokeObjects.pokemon_entries); //.map((pokeObject)=>(pokeObject[0]))
-    const listPokesObjects = listPokes.map((x) => x[1]);
-    // const listPokesMaps = Object.entries(listPokesObjects).map((x) => x[1]);
-
-    const key = Object.keys(listPokes)
-
-    // for (let [id] of Object.keys(listPokes)){
-    //     console.log(id)
-    // }
-
-    console.log(listPokes);
-    // console.log(Object.entries(listPokes));
-    setPokemons(pokeObjects);
-    // pokes.map((poke)=>(
-    //     [{name={poke.po}}]
-    // ))
+    setPokemons(pokedex)
+    setFilteredPokemons(pokedex)
   };
 
   useEffect(() => {
