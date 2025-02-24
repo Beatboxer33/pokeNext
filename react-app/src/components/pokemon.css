@@ -1,4 +1,13 @@
-.descriptionImg{
-    padding: 0;
-    margin: 0;
+.descriptionImg {
+  padding: 0;
+  margin: 0;
 }
+
+.pokedex {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap:50px;
+  text-align: center;
+}
+
+
