@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import List from "./components/List";
 import "./intro.css";
+import Loader from "./components/Loader/index.tsx";
 
 interface Pokemon {
   name: String;
@@ -8,10 +9,10 @@ interface Pokemon {
 }
 
 export default function App() {
+  const [isLoading, setIsLoading] = React.useState(true);
   const [filterValue, setFilterValue] = React.useState("");
   const [pokemons, setPokemons] = React.useState<Pokemon[]>([]);
-  const [filteredPokemons, setFilteredPokemons] =
-    React.useState<Pokemon[]>([]);
+  const [filteredPokemons, setFilteredPokemons] = React.useState<Pokemon[]>([]);
 
   const filterPokemonByName = (name: String) => {
     const result = pokemons.filter((poke) =>
@@ -34,36 +35,45 @@ export default function App() {
     });
     const pokeObjects = await pokemonResponse.json();
     const listPokes = pokeObjects.pokemon_entries;
-    const pokedex = listPokes.map((obj: {entry_number:number,pokemon_species:{name:string}}) => {
-      const id = obj.entry_number;
-      const name = obj.pokemon_species.name;
-      return { name, id };
-    });
+    const pokedex = listPokes.map(
+      (obj: { entry_number: number; pokemon_species: { name: string } }) => {
+        const id = obj.entry_number;
+        const name = obj.pokemon_species.name;
+        return { name, id };
+      }
+    );
 
-    setPokemons(pokedex)
-    setFilteredPokemons(pokedex)
+    setPokemons(pokedex);
+    setFilteredPokemons(pokedex);
+    await 5000
+    setIsLoading(!isLoading);
   };
 
   useEffect(() => {
     fetchPokemons();
   }, []);
 
+  const loadDisplay = isLoading ? "none" : "block";
+
   return (
     <>
-      <div className="intro">
-        <div>Bienvenue sur ton futur pokédex !</div>
-        <div>
-          Tu vas pouvoir apprendre tout ce qu'il faut sur React, et attraper des
-          pokemons !
+      <Loader isVisible = {isLoading}/>
+      <div style={{ display: loadDisplay }}>
+        <div className="intro">
+          <div>Bienvenue sur ton futur pokédex !</div>
+          <div>
+            Tu vas pouvoir apprendre tout ce qu'il faut sur React, et attraper
+            des pokemons !
+          </div>
+          <div>Commence par créer ton premier pokemon: Mew !</div>
         </div>
-        <div>Commence par créer ton premier pokemon: Mew !</div>
-      </div>
-      <div>
-        <p>Cherchez votre pokémon : </p>
-        <input onChange={onInputChange} value={filterValue} />
-      </div>
-      <div>
-        <List contents={filteredPokemons} />
+        <div>
+          <p>Cherchez votre pokémon : </p>
+          <input onChange={onInputChange} value={filterValue} />
+        </div>
+        <div>
+          <List contents={filteredPokemons} />
+        </div>
       </div>
     </>
   );
