@@ -18,10 +18,13 @@ export default function App() {
     const [isLoadError, setIsLoadError] = React.useState(false);
     const [filterValue, setFilterValue] = React.useState("");
     const [pokemons, setPokemons] = React.useState<Pokemon[]>([]);
+    const [numPokemon,setNumPokemon] = React.useState(0);
     const [filteredPokemons, setFilteredPokemons] = React.useState<Pokemon[]>(
         [],
     );
     const [numPage, setNumpage] = React.useState(paginate || 1);
+
+    const numByPage = 30
 
     const filterPokemonByName = (name: String) => {
         const result = pokemons.filter((poke) =>
@@ -56,6 +59,7 @@ export default function App() {
                 const name = obj.pokemon_species.name;
                 return { name, id };
             },
+          setNumPokemon(listPokes.length)
         );
         setPokemons(pokedex);
         setFilteredPokemons(pokedex);
@@ -71,7 +75,14 @@ export default function App() {
     }, []);
 
     const onClickNav = (numPage: number, action: string) => {
+        console.log(Math.ceil(numPokemon/numByPage))
         if (action === "◀️") {
+          const newNumPage = numPage > 1 ? numPage -1 : numPage
+          setNumpage(newNumPage)
+          //window.location.search = newNumPage
+        }else {
+          const newNumPage = numPage < Math.ceil(numPokemon/numByPage) ? numPage +1 : numPage
+          setNumpage(newNumPage)
         }
     };
 
@@ -97,9 +108,9 @@ export default function App() {
                     </div>
                     <div className="app">
                         <div className="nav-container">
-                            <NavButton action="◀️" />
+                            <NavButton action="◀️" onClick={() => onClickNav(+numPage,"◀️")} />
                             <h2>Page {numPage}</h2>
-                            <NavButton action="▶️" />
+                            <NavButton action="▶️"  onClick={() => onClickNav(+numPage,"▶️")}/>
                         </div>
                         <div>
                             <List contents={filteredPokemons} />
