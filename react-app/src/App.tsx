@@ -3,6 +3,7 @@ import List from "./components/List";
 import NavButton from "./components/NavButton";
 import "./intro.css";
 import Loader from "./components/Loader/index.tsx";
+import useFetchPokemons from "./hooks/pokemons.tsx";
 
 interface Pokemon {
   name: String;
@@ -15,13 +16,17 @@ export default function App() {
   const paginate = searchObject.get("paginate");
   const numPokemonByPage = 30;
 
-  const [isLoading, setIsLoading] = React.useState(true);
-  const [isLoadError, setIsLoadError] = React.useState(false);
+//   const [isLoading, setIsLoading] = React.useState(true);
+//   const [isLoadError, setIsLoadError] = React.useState(false);
   const [filterValue, setFilterValue] = React.useState("");
-  const [pokemons, setPokemons] = React.useState<Pokemon[]>([]);
-  const [numPokemon, setNumPokemon] = React.useState(0);
+//   const [pokemons, setPokemons] = React.useState<Pokemon[]>([]);
+//   const [numPokemon, setNumPokemon] = React.useState(0);
   const [filteredPokemons, setFilteredPokemons] = React.useState<Pokemon[]>([]);
   const [numPage, setNumpage] = React.useState(paginate || 1);
+  
+  
+  const pokemons = useFetchPokemons([0])
+  const isLoadError = useFetchPokemons([1])
 
   const filterPokemonByName = (name: String) => {
     const result = pokemons.filter((poke) =>
@@ -38,32 +43,32 @@ export default function App() {
   const onInputChange = (event: React.ChangeEvent<HTMLInputElement>) =>
     setFilterValue(event.target.value);
 
-  const fetchPokemons = async () => {
-    const pokemonResponse = await fetch("https://pokeapi.co/api/v2/pokedex/2", {
-      headers: { accept: "application/json" },
-    });
-    const pokeObjects = await pokemonResponse.json();
-    const listPokes = pokeObjects.pokemon_entries;
-    const pokedex = listPokes.map(
-      (obj: { entry_number: number; pokemon_species: { name: string } }) => {
-        const id = obj.entry_number;
-        const name = obj.pokemon_species.name;
-        return { name, id };
-      },
-      setNumPokemon(listPokes.length)
-    );
-    setPokemons(pokedex);
-    setFilteredPokemons(pokedex);
-    setIsLoading(!isLoading);
-  };
+//   const fetchPokemons = async () => {
+//     const pokemonResponse = await fetch("https://pokeapi.co/api/v2/pokedex/2", {
+//       headers: { accept: "application/json" },
+//     });
+//     const pokeObjects = await pokemonResponse.json();
+//     const listPokes = pokeObjects.pokemon_entries;
+//     const pokedex = listPokes.map(
+//       (obj: { entry_number: number; pokemon_species: { name: string } }) => {
+//         const id = obj.entry_number;
+//         const name = obj.pokemon_species.name;
+//         return { name, id };
+//       },
+//       setNumPokemon(listPokes.length)
+//     );
+//     setPokemons(pokedex);
+//     setFilteredPokemons(pokedex);
+//     setIsLoading(!isLoading);
+//   };
 
-  useEffect(() => {
-    fetchPokemons().catch((err) => {
-      setIsLoadError(true);
-      setIsLoading(false);
-      return isLoadError;
-    });
-  }, []);
+//   useEffect(() => {
+//     fetchPokemons().catch((err) => {
+//       setIsLoadError(true);
+//       setIsLoading(false);
+//       return isLoadError;
+//     });
+//   }, []);
 
   const onClickNav = (numPage: number, action: string) => {
     if (action === "◀️") {
@@ -77,7 +82,8 @@ export default function App() {
       setNumpage(newNumPage);
     }
   };
-  const offset = (+numPage-1) * numPokemonByPage;
+
+  const offset = (+numPage - 1) * numPokemonByPage;
 
   return (
     <>
@@ -110,7 +116,12 @@ export default function App() {
               />
             </div>
             <div>
-              <List contents={filteredPokemons.slice(offset, offset + numPokemonByPage)} />
+              <List
+                contents={filteredPokemons.slice(
+                  offset,
+                  offset + numPokemonByPage
+                )}
+              />
             </div>
           </div>
         </div>
