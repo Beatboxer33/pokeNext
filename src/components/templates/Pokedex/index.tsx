@@ -7,7 +7,7 @@ import { PokemonsContext } from "../PokedexWithContext";
 
 
 interface Pokemon {
-    name: String;
+    name: string;
     id: number;
 }
 
@@ -26,7 +26,7 @@ export default function Pokedex() {
     );
     const [numPage, setNumpage] = React.useState(paginate || 1);
 
-    const filterPokemonByName = (name: String) => {
+    const filterPokemonByName = (name: string) => {
         const result = pokemons.filter((poke) =>
             poke.name.toLowerCase().includes(name.toLowerCase()),
         );
