@@ -22,7 +22,6 @@ export default function App() {
   const [numPokemon, setNumPokemon] = React.useState(0);
   const [filteredPokemons, setFilteredPokemons] = React.useState<Pokemon[]>([]);
   const [numPage, setNumpage] = React.useState(paginate || 1);
-  // const [isPageChanged,setIsPageChanged] =React.useState(0)
 
   const filterPokemonByName = (name: String) => {
     const result = pokemons.filter((poke) =>
@@ -62,17 +61,14 @@ export default function App() {
     fetchPokemons().catch((err) => {
       setIsLoadError(true);
       setIsLoading(false);
-      onPageChanged(+numPage, numPokemonByPage);
       return isLoadError;
     });
   }, []);
 
   const onClickNav = (numPage: number, action: string) => {
-    console.log(Math.ceil(numPokemon / numPokemonByPage));
     if (action === "◀️") {
       const newNumPage = numPage > 1 ? numPage - 1 : numPage;
       setNumpage(newNumPage);
-      //window.location.search = newNumPage
     } else {
       const newNumPage =
         numPage < Math.ceil(numPokemon / numPokemonByPage)
@@ -80,25 +76,8 @@ export default function App() {
           : numPage;
       setNumpage(newNumPage);
     }
-
-    onPageChanged(numPage, numPokemonByPage);
   };
-
-  const onPageChanged = (currentPage: number, maxByPage: number) => {
-    const pokemonsByPage = [...filteredPokemons];
-    const offset = currentPage * maxByPage;
-    const currentPokeOnPage = pokemonsByPage.slice(offset, offset + maxByPage);
-    setPokemons(currentPokeOnPage);
-    setFilteredPokemons(currentPokeOnPage);
-    console.log(offset)
-    console.log(currentPokeOnPage)
-
-  };
-
-  useEffect(() => {
-    onPageChanged(+numPage, numPokemonByPage);
-  }, []);
-
+  const offset = (+numPage-1) * numPokemonByPage;
 
   return (
     <>
@@ -131,7 +110,7 @@ export default function App() {
               />
             </div>
             <div>
-              <List contents={filteredPokemons} />
+              <List contents={filteredPokemons.slice(offset, offset + numPokemonByPage)} />
             </div>
           </div>
         </div>
