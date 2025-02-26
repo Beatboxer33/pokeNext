@@ -1,0 +1,40 @@
+@font-face {
+    font-family: "PokemonEmerald";
+    src: local("PokemonEmerald"),
+        url(../../fonts/pokemon-emerald.ttf) format("truetype");
+}
+
+body {
+    font-family: "PokemonEmerald";
+}
+
+.intro {
+    font-size: 1.5rem;
+    line-height: 1.5;
+}
+
+.app {
+    display: flex;
+    flex-direction: column;
+    /* margin-left: 200px;
+  margin-right: 200px; */
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.nav-container {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    padding: 10px 20px;
+}
+
+.nav-button {
+    top: 0%;
+    font-size: 24px;
+    padding: 10px;
+    background: none;
+    border: none;
+    /* cursor: pointer; */
+}
