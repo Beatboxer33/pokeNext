@@ -1,14 +1,19 @@
-import "./intro.css";
+"use client";
 
-export default function Home() {
-    return (
-        <div className="intro">
-            <div>Bienvenue sur ton futur pokédex !</div>
-            <div>
-                Tu vas pouvoir apprendre tout ce qu'il faut sur React puis
-                Next.js, et attraper des pokemons !
-            </div>
-            <div>Commence par créer ton premier pokemon: Mew !</div>
-        </div>
-    );
+import { createContext } from "react";
+import Pokedex from "../components/templates/Pokedex";
+import useFetchPokemons from "../components/hooks/pokemons";
+
+export const PokemonsContext = createContext<any>(null);
+
+export default function RootPage() {
+  const { pokemons, numPokemon, isLoading, isLoadError } = useFetchPokemons();
+
+  return (
+    <PokemonsContext.Provider
+      value={{ pokemons, numPokemon, isLoading, isLoadError }}
+    >
+      <Pokedex />
+    </PokemonsContext.Provider>
+  );
 }

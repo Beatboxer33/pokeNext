@@ -21,6 +21,6 @@
             "@/*": ["./src/*"]
         }
     },
-    "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "react-app/src/components/Pokemon.jsx", "react-app/src/components/List.jsx", "react-app/src/index.js", "react-app/src/App.tsx", "react-app/src/functions/filterPokemonByName.jsx"],
+    "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "react-app/src/components/Pokemon.jsx", "react-app/src/components/List.jsx", "react-app/src/index.js", "react-app/src/App.tsx", "react-app/src/functions/filterPokemonByName.jsx", "src/components/molecules/PokemonList.js"],
     "exclude": ["node_modules"]
 }
