@@ -3,7 +3,7 @@ import List from "../../molecules/List";
 import NavButton from "../../atomic/NavButton";
 import "./pokedex.css";
 import Loader from "../../atomic/Loader";
-import { PokemonsContext } from "@/app/page";
+import { PokemonsContext } from "../PokedexWithContext";
 
 
 interface Pokemon {

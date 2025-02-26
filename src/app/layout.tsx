@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
+import "./global.css";
 
 const pokeTypo = localFont({
     src: "./fonts/pokemon-emerald.ttf",
