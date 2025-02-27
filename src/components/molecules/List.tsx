@@ -1,4 +1,4 @@
-import Pokemon from "../atomic/Pokemon";
+import Pokemon from "../atomic/PokemonPreview";
 
 export default function List({ contents }) {
     return (
