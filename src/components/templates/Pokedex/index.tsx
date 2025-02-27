@@ -14,11 +14,11 @@ interface Pokemon {
     id: number;
 }
 
-export default function Pokedex() {
+export default function Pokedex({pokemonList,numPokemon}) {
     const numPokemonByPage = 30;
 
-    const { pokemons, numPokemon, isLoading, isLoadError } =
-        useContext(PokemonsContext);
+    // const { pokemons, numPokemon, isLoading, isLoadError } =
+    //     useContext(PokemonsContext);
 
     const filterState = useState("");
     const [filterValue] = filterState;
@@ -29,7 +29,7 @@ export default function Pokedex() {
     const [numPage] = numPageState;
 
     const filterPokemonByName = (name: string) => {
-        const result = pokemons.filter((poke) =>
+        const result = pokemonList.filter((poke) =>
             poke.name.toLowerCase().includes(name.toLowerCase()),
         );
 
@@ -37,10 +37,10 @@ export default function Pokedex() {
     };
 
     useEffect(() => {
-        if (!isLoading) {
-            setFilteredPokemons(pokemons);
-        }
-    }, [pokemons, isLoading]);
+        // if (!isLoading) {
+            setFilteredPokemons(pokemonList);
+        // }
+    }, [pokemonList]);
 
     useEffect(() => {
         setFilteredPokemons(filterPokemonByName(filterValue));
@@ -48,13 +48,15 @@ export default function Pokedex() {
 
     const offset = (+numPage - 1) * numPokemonByPage;
 
+    // {isLoadError && (
+    //     <h1>Heeeu, Whitney Houston, we got a problem !!</h1>
+    // )}
+    // <Loader isVisible={isLoading} />
+    // {!isLoadError && !isLoading && (
+
     return (
         <>
-            {isLoadError && (
-                <h1>Heeeu, Whitney Houston, we got a problem !!</h1>
-            )}
-            <Loader isVisible={isLoading} />
-            {!isLoadError && !isLoading && (
+            
                 <div>
                     <div className="intro">
                         <div>Bienvenue sur ton futur pokédex !</div>
@@ -83,7 +85,6 @@ export default function Pokedex() {
                         />
                     </div>
                 </div>
-            )}
         </>
     );
 }

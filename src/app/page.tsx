@@ -1,5 +1,7 @@
-import PokedexWithContext from "@/components/templates/PokedexWithContext";
+import fetchPoke from "@/core/services/loadList";
+import Pokedex from "@/components/templates/Pokedex";
 
 export default async function RootPage() {
-    return <PokedexWithContext />;
+  const { pokedex, numPokemon } = await fetchPoke();
+  return <Pokedex pokemonList={pokedex} numPokemon={numPokemon} />;
 }
