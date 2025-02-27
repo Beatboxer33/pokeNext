@@ -1,18 +1,28 @@
+"use client";
 import NavButton from "../atomic/NavButton";
 
-export default function Pagination({actionValueLeft,actionValueRight,numPageValue,onClickLeft,onClickRight}){
+export default function Pagination({ numPageState, quantityByPage }) {
+    const [numPage, setNumPage] = numPageState;
 
-    return(
+    const onClickNav = (numPage: number, action: string) => {
+        if (action === "◀️") {
+            const newNumPage = numPage > 1 ? numPage - 1 : numPage;
+            setNumPage(newNumPage);
+        } else {
+            const newNumPage = numPage < quantityByPage ? numPage + 1 : numPage;
+            setNumPage(newNumPage);
+        }
+    };
+
+    const onClickLeft = () => onClickNav(+numPage, "◀️");
+
+    const onClickRight = () => onClickNav(+numPage, "▶️");
+
+    return (
         <div className="nav-container">
-            <NavButton
-                action={actionValueLeft}
-                onClick={onClickLeft}
-            />
-            <h2>Page {numPageValue}</h2>
-            <NavButton
-                action={actionValueRight}
-                onClick={onClickRight}
-            />
+            <NavButton action={"◀️"} onClick={onClickLeft} />
+            <h2>Page {numPage}</h2>
+            <NavButton action={"▶️"} onClick={onClickRight} />
         </div>
-    )
+    );
 }
