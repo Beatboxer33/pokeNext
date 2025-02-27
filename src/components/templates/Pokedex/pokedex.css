@@ -5,6 +5,7 @@
 .intro {
     font-size: 1.5rem;
     line-height: 1.5;
+    text-align: center;
 }
 
 .app {
@@ -30,7 +31,7 @@
     padding: 10px;
     background: none;
     border: none;
-    /* cursor: pointer; */
+    cursor: pointer; 
 }
 
 .pokedex {
