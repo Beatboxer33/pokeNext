@@ -31,12 +31,12 @@
     padding: 10px;
     background: none;
     border: none;
-    cursor: pointer; 
+    cursor: pointer;
 }
 
 .pokedex {
     display: grid;
     grid-template-columns: repeat(5, 1fr);
-    gap:50px;
+    gap: 50px;
     text-align: center;
-  }
+}
