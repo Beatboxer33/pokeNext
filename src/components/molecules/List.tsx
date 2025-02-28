@@ -1,8 +1,15 @@
 import Link from "next/link";
-import Pokemon from "../atomic/PokemonPreview";
 import "./list.css";
+import PokemonPreview from "../atomic/PokemonPreview";
 
-export default function List({ contents }) {
+export default function List({
+    contents,
+}: {
+    contents: {
+        name: string;
+        [key: string]: string | number | boolean | { type: { name: string } }[];
+    }[];
+}) {
     return (
         <div className="pokedex">
             {contents.map((content) => (
@@ -11,7 +18,7 @@ export default function List({ contents }) {
                     key={content.id}
                     href={`/pokemon/${content.id}`}
                 >
-                    <Pokemon name={content.name} id={content.id} />
+                    <PokemonPreview {...content} />
                 </Link>
             ))}
         </div>
