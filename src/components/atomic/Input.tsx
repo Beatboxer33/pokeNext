@@ -1,37 +1,54 @@
 import { useState } from "react";
 
 export default function Input({
-  titleVisible,
-  title,
-  id,
+    titleVisible,
+    title,
+    pokemonData,
+    pokemonIndex,
+    onChangeFormData,
+    name,
 }: {
-  titleVisible: boolean;
-  title: string;
+    titleVisible: boolean;
+    title: string;
+    name: "id" | "level";
 
-  id: number;
+    pokemonData: { id: number | null; level: number | null };
+    pokemonIndex: number;
+    onChangeFormData: (
+        key: "teamName" | "pokemons",
+        data: string | { id: number | null; level: number | null },
+        index: number,
+    ) => void;
 }) {
-    const inputState = useState("");
-  
-    const [value, setValue] = inputState;
-    const onInputChange = (event: React.ChangeEvent<HTMLInputElement>) =>
-      setValue(event.target.value);
-    
+    const onInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        onChangeFormData(
+            "pokemons",
+            { ...pokemonData, [name]: event.target.value },
+            pokemonIndex,
+        );
+    };
 
-  if (titleVisible) {
+    if (titleVisible) {
+        return (
+            <>
+                <div>
+                    <p>{title}</p>
+                </div>
+                <input
+                    className="input"
+                    onChange={onInputChange}
+                    value={pokemonData[name]}
+                />
+            </>
+        );
+    }
     return (
-      <>
-        {
-          <div>
-            <p>{title}</p>
-          </div>
-        }
-        <input  key={id} className="input" onChange={onInputChange} value={value} />
-      </>
+        <>
+            <input
+                className="input"
+                onChange={onInputChange}
+                value={pokemonData[name]}
+            />
+        </>
     );
-  }
-  return (
-    <>
-      <input key={id} className="input" onChange={onInputChange} value={value} />
-    </>
-  );
 }
