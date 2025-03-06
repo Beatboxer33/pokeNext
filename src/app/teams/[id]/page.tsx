@@ -1,4 +1,5 @@
 import List from "@/components/molecules/List";
+import TeamPage from "@/components/templates/TeamPage";
 import { prisma } from "@/lib/prisma.ts";
 
 // If Connection Timeout, disable your ipv6
@@ -54,8 +55,7 @@ export default async function PokemonPage({
 
     return (
         <div>
-            <h3>Nom de l'équipe : {team[0].name}</h3>
-            <List contents={pokemonsDetails} />
+            <TeamPage nameTeam={team[0].name} pokeTeam={pokemonsDetails}/>
         </div>
     );
 }
