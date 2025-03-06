@@ -7,7 +7,7 @@ const capitalize = (str: string) => {
     return str.charAt(0).toUpperCase() + str.slice(1);
 };
 
-export default async function PokemonPage({
+export default async function TeamPokemonPage({
     params,
 }: {
     params: Promise<{ id: string }>;
@@ -55,7 +55,7 @@ export default async function PokemonPage({
 
     return (
         <div>
-            <TeamPage nameTeam={team[0].name} pokeTeam={pokemonsDetails}/>
+            <TeamPage nameTeam={team[0].name} pokeTeam={pokemonsDetails} />
         </div>
     );
 }
